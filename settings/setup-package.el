@@ -20,7 +20,12 @@
    '(auto-complete
      yasnippet
      yasnippet-snippets
-     iedit)))
+     iedit
+     typescript-mode
+     tide
+     company
+     neotree
+     all-the-icons)))
 
 ;; (defun init--install-packages ()
 ;;   (packages-install
@@ -36,6 +41,21 @@
    (package-refresh-contents)
    (init--install-packages)))
 
+;; Iniciar neotree en emacs
+(require 'neotree)
+(require 'all-the-icons)
+
+(global-set-key [f8] 'neotree-toggle)
+
+(unless (member "all-the-icons" (font-family-list))
+    (all-the-icons-install-fonts t))
+
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+;; (setq neo-smart-open t)
+
+(setq inhibit-compacting-font-caches t)
+
+
 ;; Iniciar auto-compleatdo en emacs
 (require 'auto-complete)
 (require 'auto-complete-config)
@@ -49,5 +69,31 @@
 
 ;; Iniciar iedit en emacs
 (require 'iedit)
+
+;; Tide mode para emacs
+;; (require 'typescript-mode)
+;; (require 'tide)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
 (provide 'setup-package)

@@ -14,6 +14,9 @@
 ;; Modo ido
 (ido-mode)
 
+;; Iniciar Auto Brackets electric-pair-mode para emacs
+(electric-pair-mode 1)
+
 ;; Abrir la shell con f12
 (global-set-key [f12] 'shell)
 
