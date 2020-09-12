@@ -9,7 +9,7 @@ swank
 emms
 site-lisp/adventur-mode
 *.elc
-.dat
+*.dat
 .DS_Store
 .yas-compiled-snippets.el
 .cask

@@ -51,7 +51,7 @@
     (all-the-icons-install-fonts t))
 
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-;; (setq neo-smart-open t)
+(setq neo-smart-open t)
 
 (setq inhibit-compacting-font-caches t)
 
